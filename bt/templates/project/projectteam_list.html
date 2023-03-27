@@ -1,0 +1,104 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Project List {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Project Teams</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Project</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Project Team List</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-6 col-5 text-right">
+            <a href="#" class="btn btn-sm btn-neutral">New</a>
+            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header border-0">
+            <h3 class="mb-0">All Project Teams</h3>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush text-center">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">Project</th>
+                  <th scope="col" class="sort" data-sort="budget">User</th>
+                  <th scope="col" class="sort" data-sort="budget">Technology</th>
+                  <th scope="col" class="sort" data-sort="status">Status</th>
+                  <th scope="col" class="sort" data-sort="status">Actions</th>
+                  {% comment %} <th scope="col">Users</th>
+                  <th scope="col" class="sort" data-sort="completion">Completion</th>
+                  <th scope="col"></th> {% endcomment %}
+                </tr>
+              </thead>
+              <tbody class="list">
+                {% for team in projectteamlist %}
+                <tr>
+                    <th scope="row">
+                        <div class="media align-items-center">
+                            <a href="#" class="avatar rounded-circle mr-3">
+                                <img alt="Image placeholder" src="/static/assets/img/theme/bootstrap.jpg">
+                            </a>
+                            <div class="media-body">
+                                <span class="name mb-0 text-sm">{{ team.project.title }}</span>
+                            </div>
+                        </div>
+                    </th>
+                    <td class="budget">
+                        {{ team.user.username }}
+                    </td>
+                    <td class="budget">
+                        {{ team.project.technology }}
+                    </td>
+                    <td>
+                      <span class="badge badge-dot mr-4">
+                      <i class="bg-warning"></i>
+                      <span class="status">pending</span>
+                      </span>
+                    </td>
+                    <td class="budget">
+                        {% comment %} <a href="{% url 'projectteamdetail' team.project.id %}" class="btn btn-info"><i class="fas fa-info-circle mr-2"></i>Detail</a> {% endcomment %}
+                        {% comment %} <a href="{% url 'projectteamupdate' team.project.id %}" class="btn btn-primary"><i class="fas fa-angle-double-right mr-2"></i>Edit</a> {% endcomment %}
+                        {% comment %} <a href="{% url 'projectteamdelete' team.project.id %}" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a> {% endcomment %}
+                    </td>
+                
+            </tr>
+            {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+<script src="{% static '/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+{% endblock javascripts %}
